@@ -29,6 +29,13 @@ public class University {
         return null;
     }
 
+    public Student findStudent(String studNum) {
+        for (Student stud : students)
+            if (studNum.equals(stud.getStudentNum()))
+                return stud;
+        return null;
+    }
+
     public Student findOrAddStudent(String studNum) {
         if (studNum == null || !Student.checkStudNumFormat(studNum))
             return null;
