@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 public class University {
+    private final Enrollments allEnrollments;
     private final ArrayList<Student> students;
     private final ArrayList<Department> departments;
 
     public University() {
         this.students = new ArrayList<>();
         this.departments = new ArrayList<>();
+        this.allEnrollments = new Enrollments();
     }
 
     public void addDept(Department dep) {
@@ -39,7 +41,8 @@ public class University {
     }
 
     public void showCourseStudents(Course crs) {
-
+        if (!allEnrollments.showCourseStudents(crs))
+            System.out.println("\tNo students have enrolled in this course.");
     }
 
     public void showStudCourses(Student stud) {
