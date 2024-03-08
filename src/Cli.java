@@ -102,8 +102,14 @@ public class Cli {
         backOrLoginCommand(inputCommand);
     }
 
-    private void studentManageCourses(){
+    private void studentManageCourses() {
         System.out.print(MSG.STUDENT_MANAGE_COURSES);
+        inputCommand = sc.nextLine();
+        if ("enroll".equals(inputCommand))
+            cliState = 5;
+        else if ("list".equals(inputCommand))
+            cliState = 6;
+        backOrLoginCommand(inputCommand);
     }
 
     private void studentCoursesList(Student stud) {
