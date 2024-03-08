@@ -46,10 +46,10 @@ public class University {
     }
 
     public Course findCourse(String crsCode) {
+        Course course;
         for (Department dept : departments)
-            for (Course course : dept.getCourses())
-                if (crsCode.equals(course.getCourseCode()))
-                    return course;
+            if ((course = dept.findCourse(crsCode)) != null)
+                return course;
         return null;
     }
 
