@@ -10,6 +10,11 @@ public class Department {
         this.courses = new ArrayList<>();
     }
 
+    public void addCourse(Course crs) {
+        if (crs != null)
+            courses.add(crs);
+    }
+
     public void showDeptCourses() {
         for (Course crs : this.getCourses())
             System.out.println(crs);
