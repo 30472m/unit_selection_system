@@ -110,6 +110,40 @@ public class Cli {
         System.exit(0);
     }
 
+    private Course inputNewCourseInfo() {
+        Course crs = null;
+        String facultyName = testInputCancel("Enter faculty name: ");
+        if (facultyName == null) return null;
+        String courseName = testInputCancel("Enter course name: ");
+        if (courseName == null) return null;
+        String courseCode = testInputCancel("Enter course code: ");
+        if (courseCode == null) return null;
+        String capacity = testInputCancel("Enter capacity: ");
+        if (capacity == null) return null;
+        String unit = testInputCancel("Enter unit: ");
+        if (unit == null) return null;
+        String classTime = testInputCancel("Enter classTime: ");
+        if (classTime == null) return null;
+        String examTime = testInputCancel("Enter examTime: ");
+        if (examTime == null) return null;
+        String courseType = testInputCancel("Enter course type (SP/GN): ");
+        if (courseType == null) return null;
+
+        if ("SP".equals(courseType))
+            crs = new SpecializedCourse(facultyName, courseName, courseCode,
+                    Integer.parseInt(capacity), Integer.parseInt(unit),
+                    classTime, examTime);
+        else if ("GN".equals(courseType))
+            crs = new GeneralCourse(facultyName, courseName, courseCode,
+                    Integer.parseInt(capacity), Integer.parseInt(unit),
+                    classTime, examTime);
+        return crs;
+    }
+
+    private String inputCourseCodeForDelete() {
+        return testInputCancel("Enter course code: ");
+    }
+
     private String testInputCancel(String text) {
         System.out.print(text);
         Scanner scanner = new Scanner(System.in);
