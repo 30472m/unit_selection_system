@@ -45,7 +45,7 @@ public class Enrollments {
         else if (sumOfGnUnitsGt5(stud, crs))
             LogicalError.errorSumOfGnUnitsGt5();
         else if (conflictCourseTimeOrExamTime(stud, crs))
-            LogicalError.errorConflictCourseTime();
+            LogicalError.errorConflictCourseTimeOrExamTime();
         else {
             crs.incNumStudsInCourse();
             stud.setNumOfUnits(stud.getNumOfUnits() + crs.getUnit());
