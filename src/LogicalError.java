@@ -35,4 +35,7 @@ public class LogicalError {
 
     public static void errorConflictExamTime() {
     }
+
+    public static void errorCourseCapIsFull() {
+    }
 }

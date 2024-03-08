@@ -20,7 +20,7 @@ public class Enrollments {
     public boolean showCourseStudents(Course crs) {
         boolean flag = false;
         for (Enroll enr : allEnrolls) {
-            if (enr.course.getCourseCode().equals(crs.getCourseCode())) {
+            if (enr.course == crs) {
                 System.out.println(enr.student);
                 flag = true;
             }
@@ -30,21 +30,24 @@ public class Enrollments {
 
     public void showStudentCourses(Student stud) {
         for (Enroll enr : allEnrolls) {
-            if (enr.student.getStudentNum().equals(stud.getStudentNum()))
+            if (enr.student == stud)
                 System.out.println(enr.course);
         }
     }
 
     public void enrollStudent(Student stud, Course crs) {
-        if (existStudCrsEnroll(stud, crs) == null)
+        if (existStudCrsEnroll(stud, crs) != null)
             LogicalError.errorExistStudCrsEnroll();
+        else if (crs.courseCapIsFull())
+            LogicalError.errorCourseCapIsFull();
         else if (sumOfUnitsGt20(stud, crs))
             LogicalError.errorSumOfUnitsGt20();
         else if (sumOfGnUnitsGt5(stud, crs))
             LogicalError.errorSumOfGnUnitsGt5();
-        else if (conflictCourseTimeOrExam(stud, crs))
+        else if (conflictCourseTimeOrExamTime(stud, crs))
             LogicalError.errorConflictCourseTime();
         else {
+            crs.incNumStudsInCourse();
             stud.setNumOfUnits(stud.getNumOfUnits() + crs.getUnit());
             if (crs instanceof GeneralCourse)
                 stud.setNumOfGnUnits(stud.getNumOfGnUnits() + crs.getUnit());
@@ -55,6 +58,7 @@ public class Enrollments {
     public void deleteStudentCourseEnroll(Student stud, Course crs) {
         Enroll enr;
         if ((enr = existStudCrsEnroll(stud, crs)) != null) {
+            crs.decNumStudsInCourse();
             stud.setNumOfUnits(stud.getNumOfUnits() - crs.getUnit());
             if (crs instanceof GeneralCourse)
                 stud.setNumOfGnUnits(stud.getNumOfGnUnits() - crs.getUnit());
@@ -86,7 +90,7 @@ public class Enrollments {
                 (stud.getNumOfGnUnits() + crs.getUnit() > 5));
     }
 
-    private boolean conflictCourseTimeOrExam(Student stud, Course crs) {
+    private boolean conflictCourseTimeOrExamTime(Student stud, Course crs) {
         for (Enroll enr : allEnrolls)
             if (stud == enr.student &&
                     (ConflictTime.crsClassTimeConflict(crs, enr.course) ||
