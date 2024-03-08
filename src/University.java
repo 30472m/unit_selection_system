@@ -16,10 +16,8 @@ public class University {
     }
 
     public void showDepts() {
-        System.out.print(MSG.DEPTS_TITLE);
         for (Department dept : departments)
             System.out.println(dept);
-        System.out.print(MSG.DEPTS_SELECT_TEXT);
     }
 
     public Department findDepartment(String deptName) {
