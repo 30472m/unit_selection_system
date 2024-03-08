@@ -15,10 +15,13 @@ public class Department {
             courses.add(crs);
     }
 
-    public void deleteCourse(String crsCode) {
+    public void delCrs(String crsCode, Enrollments enrs) {
         if (crsCode != null) {
             Course crs = findCourse(crsCode);
-            courses.remove(crs);
+            if (crs != null) {
+                enrs.deleteAllCrsEnroll(crs);
+                courses.remove(crs);
+            }
         }
     }
 
@@ -32,6 +35,16 @@ public class Department {
     public void showDeptCourses() {
         for (Course crs : this.getCourses())
             System.out.println(crs);
+    }
+
+    public void increaseCapacity(String crsCodeAndIncVal) {
+        if (crsCodeAndIncVal != null) {
+            String[] params = crsCodeAndIncVal.split(",");
+            Course crs = findCourse(params[0]);
+            int incVal = Integer.parseInt(params[1]);
+            if (incVal > 0)
+                crs.setCapacity(crs.getCapacity() + incVal);
+        }
     }
 
     public String getDeptName() {

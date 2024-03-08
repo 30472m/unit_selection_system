@@ -16,7 +16,7 @@ public class Cli {
         Course crs = null;
         Student stud = null;
         Department dept = null;
-        while(true) {
+        while(true)
             switch(cliState) {
                 case 0:
                     stud = loginPage();
@@ -40,11 +40,11 @@ public class Cli {
                 case 7:
                     studentDeptCourses(stud, dept);
             }
-        }
     }
 
     private Student loginPage() {
         Student stud;
+        System.out.print(MSG.LOGIN_PAGE_TITLE);
         System.out.print(MSG.LOGIN_PAGE_TEXT);
         inputCommand = sc.nextLine();
         if ((stud = university.findOrAddStudent(inputCommand)) != null)
@@ -85,7 +85,9 @@ public class Cli {
         else if ("add".equals(inputCommand))
             dept.addCourse(inputNewCourseInfo());
         else if ("delete".equals(inputCommand))
-            dept.deleteCourse(inputCourseCodeForDelete());
+            dept.delCrs(inputCrsCodeForDel(), university.getAllEnrollments());
+        else if ("increase".equals(inputCommand))
+            dept.increaseCapacity(inputCrsCodeAndCapForIncCap());
         else if (!backOrLoginCommand(inputCommand))
             LogicalError.errorAdminManageCourses();
         return crs;
@@ -108,6 +110,7 @@ public class Cli {
     }
 
     private void studentManageCourses() {
+        System.out.print(MSG.STUDENT_PANEL_TITLE);
         System.out.print(MSG.STUDENT_MANAGE_COURSES);
         inputCommand = sc.nextLine();
         if ("enroll".equals(inputCommand))
@@ -120,6 +123,7 @@ public class Cli {
 
     private void studentCoursesList(Student stud) {
         Course crs;
+        System.out.print(MSG.STUDENT_PANEL_TITLE);
         System.out.print(MSG.COURSE_TITLE_TEXT);
         university.showStudCourses(stud);
         System.out.print(MSG.STUDENT_COURSES_LIST);
@@ -132,7 +136,10 @@ public class Cli {
 
     private void studentDeptCourses(Student stud, Department dept) {
         Course crs;
+        System.out.print(MSG.STUDENT_PANEL_TITLE);
+        System.out.print(MSG.COURSE_TITLE_TEXT);
         dept.showDeptCourses();
+        System.out.print(MSG.STUDENT_COURSES_LIST);
         inputCommand = sc.nextLine();
         if ((crs = university.findCourse(inputCommand)) != null)
             university.enrollStudent(stud, crs);
@@ -190,9 +197,18 @@ public class Cli {
         return crs;
     }
 
-    private String inputCourseCodeForDelete() {
+    private String inputCrsCodeForDel() {
         return testInputCancel("Enter course code: ");
     }
+
+    private String inputCrsCodeAndCapForIncCap() {
+        String crsCode = testInputCancel("Enter course code: ");
+        if (crsCode == null) return null;
+        String incValue = testInputCancel("Enter the capacity increase value: ");
+        if (incValue == null) return null;
+        return crsCode + "," + incValue;
+    }
+
 
     private String inputStudNumberForEnroll() {
         return testInputCancel("Enter student number: ");
