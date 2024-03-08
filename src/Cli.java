@@ -44,8 +44,7 @@ public class Cli {
 
     private Student loginPage() {
         Student stud;
-        System.out.print(MSG.LOGIN_PAGE_TITLE);
-        System.out.print(MSG.LOGIN_PAGE_TEXT);
+        System.out.print(MSG.LOGIN_PAGE_TITLE + MSG.LOGIN_PAGE_TEXT);
         inputCommand = sc.nextLine();
         if ((stud = university.findOrAddStudent(inputCommand)) != null)
             cliState = 4;
@@ -59,11 +58,13 @@ public class Cli {
     }
 
     private Department userSelectDepts() {
-        if (cliState == 1) System.out.print(MSG.ADMIN_PANEL_TITLE);
-        else System.out.print(MSG.STUDENT_PANEL_TITLE);
-
         Department dept;
+        if (cliState == 1)
+            System.out.print(MSG.ADMIN_PANEL_TITLE + MSG.DEPTS_TITLE);
+        else
+            System.out.print(MSG.STUDENT_PANEL_TITLE + MSG.DEPTS_TITLE);
         university.showDepts();
+        System.out.print(MSG.DEPTS_SELECT_TEXT);
         inputCommand = sc.nextLine();
         if ((dept = university.findDepartment(inputCommand)) != null)
             cliState = (cliState == 1) ? 2 : 7;
@@ -74,20 +75,19 @@ public class Cli {
 
     private Course adminManageCourses(Department dept) {
         Course crs;
-        System.out.print(MSG.ADMIN_PANEL_TITLE);
-        System.out.print(MSG.COURSE_TITLE_TEXT);
+        System.out.print(MSG.ADMIN_PANEL_TITLE + MSG.COURSE_TITLE_TEXT);
         dept.showDeptCourses();
         System.out.print(MSG.ADMIN_MANAGE_COURSES_TEXT);
         inputCommand = sc.nextLine();
-
         if ((crs = dept.findCourse(inputCommand)) != null)
             cliState = 3;
         else if ("add".equals(inputCommand))
-            dept.addCourse(inputNewCourseInfo());
+            dept.addCourse(InputInfo.inputNewCourseInfo());
         else if ("delete".equals(inputCommand))
-            dept.deleteCourse(inputCrsCodeForDel(), university.getAllEnrollments());
+            dept.deleteCourse(InputInfo.inputCrsCodeForDel(),
+                    university.getAllEnrollments());
         else if ("increase".equals(inputCommand))
-            dept.increaseCapacity(inputCrsCodeAndCapForIncCap());
+            dept.increaseCapacity(InputInfo.inputCrsCodeAndCapForIncCap());
         else if (!backOrLoginCommand(inputCommand))
             LogicalError.errorAdminManageCourses();
         return crs;
@@ -95,23 +95,20 @@ public class Cli {
 
     private void adminManageStudents(Course crs) {
         Student stud;
-        System.out.print(MSG.ADMIN_PANEL_TITLE);
-        System.out.print(MSG.STUDENT_TITLE_TEXT);
+        System.out.print(MSG.ADMIN_PANEL_TITLE + MSG.STUDENT_TITLE_TEXT);
         university.showCourseStudents(crs);
         System.out.print(MSG.ADMIN_MANAGE_STUDENTS_TEXT);
         inputCommand = sc.nextLine();
-
         if ((stud = university.findStudent(inputCommand)) != null)
             university.unEnrollment(stud, crs);
         else if ("add".equals(inputCommand))
-            university.enrollStudent(inputStudNumberForEnroll(), crs);
+            university.enrollStudent(InputInfo.inputStudNumberForEnroll(), crs);
         else if (!backOrLoginCommand(inputCommand))
             LogicalError.errorAdminManageStudents();
     }
 
     private void studentManageCourses() {
-        System.out.print(MSG.STUDENT_PANEL_TITLE);
-        System.out.print(MSG.STUDENT_MANAGE_COURSES);
+        System.out.print(MSG.STUDENT_PANEL_TITLE + MSG.STUDENT_MANAGE_COURSES);
         inputCommand = sc.nextLine();
         if ("enroll".equals(inputCommand))
             cliState = 5;
@@ -123,8 +120,7 @@ public class Cli {
 
     private void studentCoursesList(Student stud) {
         Course crs;
-        System.out.print(MSG.STUDENT_PANEL_TITLE);
-        System.out.print(MSG.COURSE_TITLE_TEXT);
+        System.out.print(MSG.STUDENT_PANEL_TITLE + MSG.COURSE_TITLE_TEXT);
         university.showStudCourses(stud);
         System.out.print(MSG.STUDENT_COURSES_LIST);
         inputCommand = sc.nextLine();
@@ -136,8 +132,7 @@ public class Cli {
 
     private void studentDeptCourses(Student stud, Department dept) {
         Course crs;
-        System.out.print(MSG.STUDENT_PANEL_TITLE);
-        System.out.print(MSG.COURSE_TITLE_TEXT);
+        System.out.print(MSG.STUDENT_PANEL_TITLE + MSG.COURSE_TITLE_TEXT);
         dept.showDeptCourses();
         System.out.print(MSG.STUDENT_COURSES_LIST);
         inputCommand = sc.nextLine();
@@ -165,62 +160,5 @@ public class Cli {
     private void terminateCli() {
         System.out.print(MSG.EXIT_TEXT);
         System.exit(0);
-    }
-
-    private Course inputNewCourseInfo() {
-        Course crs = null;
-        String facultyName = testInputCancel("Enter faculty name: ");
-        if (facultyName == null) return null;
-        String courseName = testInputCancel("Enter course name: ");
-        if (courseName == null) return null;
-        String courseCode = testInputCancel("Enter course code: ");
-        if (courseCode == null) return null;
-        String capacity = testInputCancel("Enter capacity: ");
-        if (capacity == null) return null;
-        String unit = testInputCancel("Enter unit: ");
-        if (unit == null) return null;
-        String classTime = testInputCancel("Enter classTime: ");
-        if (classTime == null) return null;
-        String examTime = testInputCancel("Enter examTime: ");
-        if (examTime == null) return null;
-        String courseType = testInputCancel("Enter course type (SP/GN): ");
-        if (courseType == null) return null;
-
-        if ("SP".equals(courseType))
-            crs = new SpecializedCourse(facultyName, courseName, courseCode,
-                    Integer.parseInt(capacity), Integer.parseInt(unit),
-                    classTime, examTime);
-        else if ("GN".equals(courseType))
-            crs = new GeneralCourse(facultyName, courseName, courseCode,
-                    Integer.parseInt(capacity), Integer.parseInt(unit),
-                    classTime, examTime);
-        return crs;
-    }
-
-    private String inputCrsCodeForDel() {
-        return testInputCancel("Enter course code: ");
-    }
-
-    private String inputCrsCodeAndCapForIncCap() {
-        String crsCode = testInputCancel("Enter course code: ");
-        if (crsCode == null) return null;
-        String incValue = testInputCancel("Enter the capacity increase value: ");
-        if (incValue == null) return null;
-        return crsCode + "," + incValue;
-    }
-
-
-    private String inputStudNumberForEnroll() {
-        return testInputCancel("Enter student number: ");
-    }
-
-    private String testInputCancel(String text) {
-        System.out.print(text);
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        if ("cancel".equals(input))
-            return null;
-        else
-            return input;
     }
 }
