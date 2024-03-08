@@ -132,14 +132,18 @@ public class Cli {
         backOrLoginCommand(inputCommand);
     }
 
-    private void backOrLoginCommand(String command) {
+    private boolean backOrLoginCommand(String command) {
+        boolean flag = false;
         if (null != command) switch (command) {
             case "back":
                 cliState = (cliState == 4) ? 0 : (cliState - 1);
+                flag = true;
                 break;
             case "login":
                 cliState = 0;
+                flag = true;
         }
+        return flag;
     }
 
     private void terminateCli() {
