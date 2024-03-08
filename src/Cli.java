@@ -124,7 +124,12 @@ public class Cli {
     }
 
     private void studentDeptCourses(Student stud, Department dept) {
-
+        Course crs;
+        dept.showDeptCourses();
+        inputCommand = sc.nextLine();
+        if ((crs = university.findCourse(inputCommand)) != null)
+            university.enrollStudent(stud, crs);
+        backOrLoginCommand(inputCommand);
     }
 
     private void backOrLoginCommand(String command) {
