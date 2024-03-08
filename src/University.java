@@ -20,6 +20,13 @@ public class University {
         System.out.print(MSG.DEPTS_SELECT_TEXT);
     }
 
+    public Department findDepartment(String deptName) {
+        for (Department dept : departments)
+            if (deptName.equals(dept.getDeptName()))
+                return dept;
+        return null;
+    }
+
     public Student findOrAddStudent(String studNum) {
         if (studNum == null || !Student.checkStudNumFormat(studNum))
             return null;
