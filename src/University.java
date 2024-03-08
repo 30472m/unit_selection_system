@@ -61,7 +61,6 @@ public class University {
     }
 
     public void showStudCourses(Student stud) {
-        System.out.print(MSG.COURSE_TITLE_TEXT);
         allEnrollments.showStudentCourses(stud);
     }
 
@@ -77,6 +76,10 @@ public class University {
 
     public void enrollStudent(Student stud, Course crs) {
         allEnrollments.enrollStudent(stud, crs);
+    }
+
+    public Enrollments getAllEnrollments() {
+        return allEnrollments;
     }
 
     public ArrayList<Student> getStudents() {
