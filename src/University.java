@@ -56,6 +56,16 @@ public class University {
 
     }
 
+    public void unEnrollment(Student stud, Course crs) {
+        allEnrollments.deleteStudentCourseEnroll(stud, crs);
+    }
+
+    public void enrollStudent(String stNum, Course crs) {
+        Student stud = findOrAddStudent(stNum);
+        if (stud != null)
+            allEnrollments.enrollStudent(stud, crs);
+    }
+
     public ArrayList<Student> getStudents() {
         return students;
     }
