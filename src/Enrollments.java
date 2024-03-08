@@ -28,6 +28,13 @@ public class Enrollments {
         return flag;
     }
 
+    public void showStudentCourses(Student stud) {
+        for (Enroll enr : allEnrolls) {
+            if (enr.student.getStudentNum().equals(stud.getStudentNum()))
+                System.out.println(enr.course);
+        }
+    }
+
     public void enrollStudent(Student stud, Course crs) {
         stud.setNumOfUnits(stud.getNumOfUnits() + crs.getUnit());
         if (crs instanceof GeneralCourse)

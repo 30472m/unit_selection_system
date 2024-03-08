@@ -53,7 +53,8 @@ public class University {
     }
 
     public void showStudCourses(Student stud) {
-
+        System.out.print(MSG.COURSE_TITLE_TEXT);
+        allEnrollments.showStudentCourses(stud);
     }
 
     public void unEnrollment(Student stud, Course crs) {
