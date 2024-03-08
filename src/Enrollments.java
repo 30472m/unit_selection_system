@@ -42,6 +42,8 @@ public class Enrollments {
             LogicalError.errorSumOfUnitsGt20();
         else if (sumOfGnUnitsGt5(stud, crs))
             LogicalError.errorSumOfGnUnitsGt5();
+        else if (conflictCourseTimeOrExam(stud, crs))
+            LogicalError.errorConflictCourseTime();
         else {
             stud.setNumOfUnits(stud.getNumOfUnits() + crs.getUnit());
             if (crs instanceof GeneralCourse)
@@ -82,5 +84,14 @@ public class Enrollments {
     private boolean sumOfGnUnitsGt5(Student stud, Course crs) {
         return ((crs instanceof GeneralCourse) &&
                 (stud.getNumOfGnUnits() + crs.getUnit() > 5));
+    }
+
+    private boolean conflictCourseTimeOrExam(Student stud, Course crs) {
+        for (Enroll enr : allEnrolls)
+            if (stud == enr.student &&
+                    (ConflictTime.crsClassTimeConflict(crs, enr.course) ||
+                            ConflictTime.crsExamTimeConflict(crs, enr.course)))
+                return true;
+        return false;
     }
 }
