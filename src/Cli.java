@@ -109,4 +109,14 @@ public class Cli {
         System.out.print(MSG.EXIT_TEXT);
         System.exit(0);
     }
+
+    private String testInputCancel(String text) {
+        System.out.print(text);
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        if ("cancel".equals(input))
+            return null;
+        else
+            return input;
+    }
 }
