@@ -24,6 +24,10 @@ public class MSG {
             "\nEnter (course code) to unenroll the course" +
                     BACK_LOGIN_PROMPT_TEXT;
 
+    static final String STUDENT_DEPT_COURSES =
+            "\nEnter (course code) to enroll the course" +
+                    BACK_LOGIN_PROMPT_TEXT;
+
     static final String ADMIN_MANAGE_STUDENTS_TEXT =
             "\nEnter (student no) to remove the student from the course" +
                     "\nEnter \"add\" to add a student to the course" +
@@ -47,7 +51,7 @@ public class MSG {
                     BACK_LOGIN_PROMPT_TEXT;
 
     static final String COURSE_TITLE_TEXT =
-            "faculty name  " + "  course name  " + "  course code    " +
+            "\nfaculty name  " + "  course name  " + "  course code    " +
                     "capacity  " + "  unit  " + "    class time    " + "        exam time" +
                     "      SP/GN\n============    ===========    ===========    " +
                     "========    ====      ==========            =========      =====\n";
