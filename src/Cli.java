@@ -144,7 +144,8 @@ public class Cli {
         boolean flag = false;
         if (null != command) switch (command) {
             case "back":
-                cliState = (cliState == 4) ? 0 : (cliState - 1);
+                if (cliState == 6) cliState = 4;
+                else cliState = (cliState == 4) ? 0 : (cliState - 1);
                 flag = true;
                 break;
             case "login":
