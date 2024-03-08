@@ -79,4 +79,9 @@ public class Cli {
     private void studentDeptCourses(Student stud, Department dept) {
 
     }
+
+    private void terminateCli() {
+        System.out.print(MSG.EXIT_TEXT);
+        System.exit(0);
+    }
 }
