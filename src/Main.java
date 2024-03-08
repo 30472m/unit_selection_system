@@ -51,5 +51,8 @@ public class Main {
         GeneralCourse comp_gn1 = new GeneralCourse
                 ("Gerami", "History of Imamate", "37622", 49, 2, "class_comp_gn1", "exam_comp_gn1");
         comp_dept.addCourse(comp_gn1);
+
+        Cli cli = new Cli(university);
+        cli.runCli();
     }
 }
