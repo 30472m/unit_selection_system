@@ -27,4 +27,19 @@ public class Enrollments {
         }
         return flag;
     }
+
+    public void enrollStudent(Student stud, Course crs) {
+        stud.setNumOfUnits(stud.getNumOfUnits() + crs.getUnit());
+        if (crs instanceof GeneralCourse)
+           stud.setNumOfGnUnits(stud.getNumOfGnUnits() + crs.getUnit());
+        allEnrolls.add(new Enroll(stud, crs));
+    }
+
+    public void deleteStudentCourseEnroll(Student stud, Course crs) {
+        for (Enroll enr : allEnrolls) {
+            if (enr.student == stud && enr.course == crs)
+                allEnrolls.remove(enr);
+            break;
+        }
+    }
 }
