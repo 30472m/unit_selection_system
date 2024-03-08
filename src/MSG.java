@@ -33,7 +33,7 @@ public class MSG {
 
     static final String COURSE_TITLE_TEXT =
             "faculty name  " + "  course name  " + "  course code  " +
-                    "  capacity  " + "  unit  " + "  class time  " + "  exam time  " +
+                    "  capacity  " + "  unit  " + "    class time    " + "        exam time  " +
                     "    SP/GN\n============    ===========    ===========    " +
-                    "========    ====    ==========    =========      =====\n";
+                    "========    ====      ==========            =========      =====\n";
 }
