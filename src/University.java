@@ -75,6 +75,10 @@ public class University {
             allEnrollments.enrollStudent(stud, crs);
     }
 
+    public void enrollStudent(Student stud, Course crs) {
+        allEnrollments.enrollStudent(stud, crs);
+    }
+
     public ArrayList<Student> getStudents() {
         return students;
     }
