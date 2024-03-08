@@ -15,7 +15,7 @@ public class Department {
             courses.add(crs);
     }
 
-    public void delCrs(String crsCode, Enrollments enrs) {
+    public void deleteCourse(String crsCode, Enrollments enrs) {
         if (crsCode != null) {
             Course crs = findCourse(crsCode);
             if (crs != null) {

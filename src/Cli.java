@@ -85,7 +85,7 @@ public class Cli {
         else if ("add".equals(inputCommand))
             dept.addCourse(inputNewCourseInfo());
         else if ("delete".equals(inputCommand))
-            dept.delCrs(inputCrsCodeForDel(), university.getAllEnrollments());
+            dept.deleteCourse(inputCrsCodeForDel(), university.getAllEnrollments());
         else if ("increase".equals(inputCommand))
             dept.increaseCapacity(inputCrsCodeAndCapForIncCap());
         else if (!backOrLoginCommand(inputCommand))
