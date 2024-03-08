@@ -113,8 +113,14 @@ public class Cli {
     }
 
     private void studentCoursesList(Student stud) {
+        Course crs;
         System.out.print(MSG.COURSE_TITLE_TEXT);
+        university.showStudCourses(stud);
         System.out.print(MSG.STUDENT_COURSES_LIST);
+        inputCommand = sc.nextLine();
+        if ((crs = university.findCourse(inputCommand)) != null)
+            university.unEnrollment(stud, crs);
+        backOrLoginCommand(inputCommand);
     }
 
     private void studentDeptCourses(Student stud, Department dept) {
