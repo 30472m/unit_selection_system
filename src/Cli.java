@@ -59,7 +59,14 @@ public class Cli {
     private Department userSelectDepts() {
         if (cliState == 1) System.out.print(MSG.ADMIN_PANEL_TITLE);
         else System.out.print(MSG.STUDENT_PANEL_TITLE);
-        return null;
+
+        Department dept;
+        university.showDepts();
+        inputCommand = sc.nextLine();
+        if ((dept = university.findDepartment(inputCommand)) != null)
+            cliState = (cliState == 1) ? 2 : 7;
+        backOrLoginCommand(inputCommand);
+        return dept;
     }
 
     private Course adminManageCourses(Department dept) {
