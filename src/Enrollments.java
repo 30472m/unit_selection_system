@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Enrollments {
-    private final ArrayList<Enroll> allEnrolls;
+    private ArrayList<Enroll> allEnrolls;
 
     class Enroll {
         final Student student;
@@ -36,7 +36,7 @@ public class Enrollments {
     }
 
     public void enrollStudent(Student stud, Course crs) {
-        if (existStudCrsEnroll(stud, crs))
+        if (existStudCrsEnroll(stud, crs) == null)
             LogicalError.errorExistStudCrsEnroll();
         else if (sumOfUnitsGt20(stud, crs))
             LogicalError.errorSumOfUnitsGt20();
@@ -51,18 +51,28 @@ public class Enrollments {
     }
 
     public void deleteStudentCourseEnroll(Student stud, Course crs) {
-        for (Enroll enr : allEnrolls) {
-            if (enr.student == stud && enr.course == crs)
-                allEnrolls.remove(enr);
-            break;
+        Enroll enr;
+        if ((enr = existStudCrsEnroll(stud, crs)) != null) {
+            stud.setNumOfUnits(stud.getNumOfUnits() - crs.getUnit());
+            if (crs instanceof GeneralCourse)
+                stud.setNumOfGnUnits(stud.getNumOfGnUnits() - crs.getUnit());
+            allEnrolls.remove(enr);
         }
     }
 
-    private boolean existStudCrsEnroll(Student stud, Course crs) {
+    public void deleteAllCrsEnroll(Course crs) {
+        ArrayList<Enroll> tmpEnroll = new ArrayList<>();
+        for (Enroll enr : allEnrolls)
+            if (crs != enr.course)
+                tmpEnroll.add(enr);
+        allEnrolls = tmpEnroll;
+    }
+
+    private Enroll existStudCrsEnroll(Student stud, Course crs) {
         for (Enroll enr : allEnrolls)
             if (enr.student == stud && enr.course == crs)
-                return true;
-        return false;
+                return enr;
+        return null;
     }
 
     private boolean sumOfUnitsGt20(Student stud, Course crs) {
