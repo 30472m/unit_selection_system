@@ -20,6 +20,17 @@ public class University {
         System.out.print(MSG.DEPTS_SELECT_TEXT);
     }
 
+    public Student findOrAddStudent(String studNum) {
+        if (studNum == null || !Student.checkStudNumFormat(studNum))
+            return null;
+        for (Student stud : students)
+            if (studNum.equals(stud.getStudentNum()))
+                return stud;
+        Student new_student = new Student(studNum);
+        students.add(new_student);
+        return new_student;
+    }
+
     public void showCourseStudents(Course crs) {
 
     }
