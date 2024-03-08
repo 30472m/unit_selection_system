@@ -53,6 +53,8 @@ public class Cli {
             cliState = 1;
         else if ("exit".equals(inputCommand))
             terminateCli();
+        else
+            LogicalError.errorLoginPage();
         return stud;
     }
 
@@ -65,7 +67,8 @@ public class Cli {
         inputCommand = sc.nextLine();
         if ((dept = university.findDepartment(inputCommand)) != null)
             cliState = (cliState == 1) ? 2 : 7;
-        backOrLoginCommand(inputCommand);
+        else if (!backOrLoginCommand(inputCommand))
+            LogicalError.errorUserSelectDepts();
         return dept;
     }
 
@@ -83,7 +86,8 @@ public class Cli {
             dept.addCourse(inputNewCourseInfo());
         else if ("delete".equals(inputCommand))
             dept.deleteCourse(inputCourseCodeForDelete());
-        backOrLoginCommand(inputCommand);
+        else if (!backOrLoginCommand(inputCommand))
+            LogicalError.errorAdminManageCourses();
         return crs;
     }
 
@@ -99,7 +103,8 @@ public class Cli {
             university.unEnrollment(stud, crs);
         else if ("add".equals(inputCommand))
             university.enrollStudent(inputStudNumberForEnroll(), crs);
-        backOrLoginCommand(inputCommand);
+        else if (!backOrLoginCommand(inputCommand))
+            LogicalError.errorAdminManageStudents();
     }
 
     private void studentManageCourses() {
@@ -109,7 +114,8 @@ public class Cli {
             cliState = 5;
         else if ("list".equals(inputCommand))
             cliState = 6;
-        backOrLoginCommand(inputCommand);
+        else if (!backOrLoginCommand(inputCommand))
+            LogicalError.errorStudentManageCourses();
     }
 
     private void studentCoursesList(Student stud) {
@@ -120,7 +126,8 @@ public class Cli {
         inputCommand = sc.nextLine();
         if ((crs = university.findCourse(inputCommand)) != null)
             university.unEnrollment(stud, crs);
-        backOrLoginCommand(inputCommand);
+        else if (!backOrLoginCommand(inputCommand))
+            LogicalError.errorStudentCoursesList();
     }
 
     private void studentDeptCourses(Student stud, Department dept) {
@@ -129,7 +136,8 @@ public class Cli {
         inputCommand = sc.nextLine();
         if ((crs = university.findCourse(inputCommand)) != null)
             university.enrollStudent(stud, crs);
-        backOrLoginCommand(inputCommand);
+        else if (!backOrLoginCommand(inputCommand))
+            LogicalError.errorStudentDeptCourses();
     }
 
     private boolean backOrLoginCommand(String command) {
