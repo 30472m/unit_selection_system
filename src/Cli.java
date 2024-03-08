@@ -13,49 +13,55 @@ public class Cli {
     }
 
     public void runCli() {
+        Course crs = null;
+        Student stud = null;
+        Department dept = null;
         while(true) {
             switch(cliState) {
                 case 0:
-                    loginPage();
+                    stud = loginPage();
                     break;
                 case 1:
                 case 6:
-                    userSelectDepts();
+                    dept = userSelectDepts();
                     break;
                 case 2:
-                    adminManageCourses();
+                    crs = adminManageCourses(dept);
                     break;
                 case 3:
-                    adminManageStudents();
+                    adminManageStudents(crs);
                     break;
                 case 4:
                     studentManageCourses();
                     break;
                 case 5:
-                    studentCoursesList();
+                    studentCoursesList(stud);
                     break;
                 case 7:
-                    studentDeptCourses();
+                    studentDeptCourses(stud, dept);
             }
         }
     }
 
-    private void loginPage(){
+    private Student loginPage(){
         System.out.print(MSG.LOGIN_PAGE_TEXT);
+        return null;
     }
 
-    private void userSelectDepts() {
+    private Department userSelectDepts() {
         if (cliState == 1) System.out.print(MSG.ADMIN_PANEL_TITLE);
         else System.out.print(MSG.STUDENT_PANEL_TITLE);
+        return null;
     }
 
-    private void adminManageCourses() {
+    private Course adminManageCourses(Department dept) {
         System.out.print(MSG.ADMIN_PANEL_TITLE);
         System.out.print(MSG.COURSE_TITLE_TEXT);
         System.out.print(MSG.ADMIN_MANAGE_COURSES_TEXT);
+        return null;
     }
 
-    private void adminManageStudents() {
+    private void adminManageStudents(Course crs) {
         System.out.print(MSG.ADMIN_PANEL_TITLE);
         System.out.print(MSG.STUDENT_TITLE_TEXT);
         System.out.print(MSG.ADMIN_MANAGE_STUDENTS_TEXT);
@@ -65,12 +71,12 @@ public class Cli {
         System.out.print(MSG.STUDENT_MANAGE_COURSES);
     }
 
-    private void studentCoursesList() {
+    private void studentCoursesList(Student stud) {
         System.out.print(MSG.COURSE_TITLE_TEXT);
         System.out.print(MSG.STUDENT_COURSES_LIST);
     }
 
-    private void studentDeptCourses() {
+    private void studentDeptCourses(Student stud, Department dept) {
 
     }
 }
