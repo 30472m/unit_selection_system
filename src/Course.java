@@ -4,8 +4,8 @@ public class Course {
     private final String facultyName;
     private final String courseName;
     private final String courseCode;
-    private final int capacity;
-    private final int unit;
+    private int capacity;
+    private int unit;
     private final String classTime;
     private final String examTime;
 
@@ -35,9 +35,17 @@ public class Course {
         return unit;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int cap) {
+        this.capacity = cap;
+    }
+
     @Override
     public String toString() {
-        return String.format("%-15s%-20s%-14s%-10d%-6d%-15s%-15s", facultyName,
+        return String.format("%-15s%-20s%-14s%-10d%-6d%-15s%-16s", facultyName,
                 courseName, courseCode, capacity, unit, classTime, examTime);
     }
 }

@@ -5,4 +5,9 @@ public class GeneralCourse extends Course {
 
         super(fac_name, crs_name, crs_code, cap, crdt, cls_time, ex_time);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format("%-5s", "GN");
+    }
 }
