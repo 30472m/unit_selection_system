@@ -5,7 +5,7 @@ public class Course {
     private final String courseName;
     private final String courseCode;
     private int capacity;
-    private int unit;
+    private final int unit;
     private final String classTime;
     private final String examTime;
 
@@ -27,6 +27,7 @@ public class Course {
         return m.matches();
     }
 
+
     public String getCourseCode() {
         return courseCode;
     }
@@ -43,9 +44,17 @@ public class Course {
         this.capacity = cap;
     }
 
+    public String getClassTime() {
+        return classTime;
+    }
+
+    public String getExamTime() {
+        return examTime;
+    }
+
     @Override
     public String toString() {
-        return String.format("%-15s%-20s%-14s%-10d%-6d%-15s%-16s", facultyName,
+        return String.format("%-15s%-20s%-14s%-10d%-6d%-22s%-20s", facultyName,
                 courseName, courseCode, capacity, unit, classTime, examTime);
     }
 }
