@@ -8,6 +8,7 @@ public class Course {
     private final int unit;
     private final String classTime;
     private final String examTime;
+    private int numStudsInCourse;
 
     public Course(String fac_name, String crs_name, String crs_code,
                   int cap, int crdt, String cls_time, String ex_time) {
@@ -18,6 +19,19 @@ public class Course {
         this.unit = crdt;
         this.classTime = cls_time;
         this.examTime = ex_time;
+        this.numStudsInCourse = 0;
+    }
+
+    public boolean courseCapIsFull() {
+        return this.numStudsInCourse == this.capacity;
+    }
+
+    public void incNumStudsInCourse() {
+        this.numStudsInCourse++;
+    }
+
+    public void decNumStudsInCourse() {
+        this.numStudsInCourse--;
     }
 
     public static boolean checkCourseCodeFormat(String inp) {
@@ -26,7 +40,6 @@ public class Course {
         Matcher m = p.matcher(inp);
         return m.matches();
     }
-
 
     public String getCourseCode() {
         return courseCode;
@@ -50,6 +63,10 @@ public class Course {
 
     public String getExamTime() {
         return examTime;
+    }
+
+    public int getNumStudsInCourse() {
+        return numStudsInCourse;
     }
 
     @Override
