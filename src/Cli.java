@@ -88,9 +88,18 @@ public class Cli {
     }
 
     private void adminManageStudents(Course crs) {
+        Student stud;
         System.out.print(MSG.ADMIN_PANEL_TITLE);
         System.out.print(MSG.STUDENT_TITLE_TEXT);
+        university.showCourseStudents(crs);
         System.out.print(MSG.ADMIN_MANAGE_STUDENTS_TEXT);
+        inputCommand = sc.nextLine();
+
+        if ((stud = university.findStudent(inputCommand)) != null)
+            university.unEnrollment(stud, crs);
+        else if ("add".equals(inputCommand))
+            university.enrollStudent(inputStudNumberForEnroll(), crs);
+        backOrLoginCommand(inputCommand);
     }
 
     private void studentManageCourses(){
@@ -153,6 +162,10 @@ public class Cli {
 
     private String inputCourseCodeForDelete() {
         return testInputCancel("Enter course code: ");
+    }
+
+    private String inputStudNumberForEnroll() {
+        return testInputCancel("Enter student number: ");
     }
 
     private String testInputCancel(String text) {
