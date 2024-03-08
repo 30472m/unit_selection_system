@@ -26,6 +26,8 @@ public class Department {
     }
 
     public Course findCourse(String crsCode) {
+        if (!Course.checkCourseCodeFormat(crsCode))
+            return null;
         for (Course crs : this.courses)
             if (crsCode.equals(crs.getCourseCode()))
                 return crs;
