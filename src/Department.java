@@ -15,6 +15,20 @@ public class Department {
             courses.add(crs);
     }
 
+    public void deleteCourse(String crsCode) {
+        if (crsCode != null) {
+            Course crs = findCourse(crsCode);
+            courses.remove(crs);
+        }
+    }
+
+    public Course findCourse(String crsCode) {
+        for (Course crs : this.courses)
+            if (crsCode.equals(crs.getCourseCode()))
+                return crs;
+        return null;
+    }
+
     public void showDeptCourses() {
         for (Course crs : this.getCourses())
             System.out.println(crs);
