@@ -88,6 +88,16 @@ public class Cli {
 
     }
 
+    private void backOrLoginCommand(String command) {
+        if (null != command) switch (command) {
+            case "back":
+                cliState = (cliState == 4) ? 0 : (cliState - 1);
+                break;
+            case "login":
+                cliState = 0;
+        }
+    }
+
     private void terminateCli() {
         System.out.print(MSG.EXIT_TEXT);
         System.exit(0);
