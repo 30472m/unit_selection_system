@@ -41,30 +41,36 @@ public class Cli {
     }
 
     private void loginPage(){
-
+        System.out.print(MSG.LOGIN_PAGE_TEXT);
     }
 
     private void userSelectDepts() {
-
+        if (cliState == 1) System.out.print(MSG.ADMIN_PANEL_TITLE);
+        else System.out.print(MSG.STUDENT_PANEL_TITLE);
     }
 
     private void adminManageCourses() {
-
+        System.out.print(MSG.ADMIN_PANEL_TITLE);
+        System.out.print(MSG.COURSE_TITLE_TEXT);
+        System.out.print(MSG.ADMIN_MANAGE_COURSES_TEXT);
     }
 
     private void adminManageStudents() {
-
+        System.out.print(MSG.ADMIN_PANEL_TITLE);
+        System.out.print(MSG.STUDENT_TITLE_TEXT);
+        System.out.print(MSG.ADMIN_MANAGE_STUDENTS_TEXT);
     }
 
     private void studentManageCourses(){
-
+        System.out.print(MSG.STUDENT_MANAGE_COURSES);
     }
 
     private void studentCoursesList() {
-
+        System.out.print(MSG.COURSE_TITLE_TEXT);
+        System.out.print(MSG.STUDENT_COURSES_LIST);
     }
 
     private void studentDeptCourses() {
-        
+
     }
 }
