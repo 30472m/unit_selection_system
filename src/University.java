@@ -36,6 +36,14 @@ public class University {
         return null;
     }
 
+    public Course findCourse(String crsCode) {
+        for (Department dept : departments)
+            for (Course course : dept.getCourses())
+                if (crsCode.equals(course.getCourseCode()))
+                    return course;
+        return null;
+    }
+
     public Student findOrAddStudent(String studNum) {
         if (studNum == null || !Student.checkStudNumFormat(studNum))
             return null;
