@@ -43,9 +43,17 @@ public class Cli {
         }
     }
 
-    private Student loginPage(){
+    private Student loginPage() {
+        Student stud;
         System.out.print(MSG.LOGIN_PAGE_TEXT);
-        return null;
+        inputCommand = sc.nextLine();
+        if ((stud = university.findOrAddStudent(inputCommand)) != null)
+            cliState = 4;
+        else if ("admin".equals(inputCommand))
+            cliState = 1;
+        else if ("exit".equals(inputCommand))
+            terminateCli();
+        return stud;
     }
 
     private Department userSelectDepts() {
