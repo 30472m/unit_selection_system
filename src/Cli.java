@@ -134,9 +134,9 @@ public class Cli {
         Course crs;
         System.out.print(MSG.STUDENT_PANEL_TITLE + MSG.COURSE_TITLE_TEXT);
         dept.showDeptCourses();
-        System.out.print(MSG.STUDENT_COURSES_LIST);
+        System.out.print(MSG.STUDENT_DEPT_COURSES);
         inputCommand = sc.nextLine();
-        if ((crs = university.findCourse(inputCommand)) != null)
+        if ((crs = dept.findCourse(inputCommand)) != null)
             university.enrollStudent(stud, crs);
         else if (!backOrLoginCommand(inputCommand))
             LogicalError.errorStudentDeptCourses();
