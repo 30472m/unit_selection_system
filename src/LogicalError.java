@@ -29,4 +29,10 @@ public class LogicalError {
 
     public static void errorSumOfGnUnitsGt5() {
     }
+
+    public static void errorConflictCourseTime() {
+    }
+
+    public static void errorConflictExamTime() {
+    }
 }
