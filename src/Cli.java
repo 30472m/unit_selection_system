@@ -70,10 +70,21 @@ public class Cli {
     }
 
     private Course adminManageCourses(Department dept) {
+        Course crs;
         System.out.print(MSG.ADMIN_PANEL_TITLE);
         System.out.print(MSG.COURSE_TITLE_TEXT);
+        dept.showDeptCourses();
         System.out.print(MSG.ADMIN_MANAGE_COURSES_TEXT);
-        return null;
+        inputCommand = sc.nextLine();
+
+        if ((crs = dept.findCourse(inputCommand)) != null)
+            cliState = 3;
+        else if ("add".equals(inputCommand))
+            dept.addCourse(inputNewCourseInfo());
+        else if ("delete".equals(inputCommand))
+            dept.deleteCourse(inputCourseCodeForDelete());
+        backOrLoginCommand(inputCommand);
+        return crs;
     }
 
     private void adminManageStudents(Course crs) {
