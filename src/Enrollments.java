@@ -36,10 +36,18 @@ public class Enrollments {
     }
 
     public void enrollStudent(Student stud, Course crs) {
-        stud.setNumOfUnits(stud.getNumOfUnits() + crs.getUnit());
-        if (crs instanceof GeneralCourse)
-           stud.setNumOfGnUnits(stud.getNumOfGnUnits() + crs.getUnit());
-        allEnrolls.add(new Enroll(stud, crs));
+        if (existStudCrsEnroll(stud, crs))
+            LogicalError.errorExistStudCrsEnroll();
+        else if (sumOfUnitsGt20(stud, crs))
+            LogicalError.errorSumOfUnitsGt20();
+        else if (sumOfGnUnitsGt5(stud, crs))
+            LogicalError.errorSumOfGnUnitsGt5();
+        else {
+            stud.setNumOfUnits(stud.getNumOfUnits() + crs.getUnit());
+            if (crs instanceof GeneralCourse)
+                stud.setNumOfGnUnits(stud.getNumOfGnUnits() + crs.getUnit());
+            allEnrolls.add(new Enroll(stud, crs));
+        }
     }
 
     public void deleteStudentCourseEnroll(Student stud, Course crs) {
@@ -48,5 +56,21 @@ public class Enrollments {
                 allEnrolls.remove(enr);
             break;
         }
+    }
+
+    private boolean existStudCrsEnroll(Student stud, Course crs) {
+        for (Enroll enr : allEnrolls)
+            if (enr.student == stud && enr.course == crs)
+                return true;
+        return false;
+    }
+
+    private boolean sumOfUnitsGt20(Student stud, Course crs) {
+        return stud.getNumOfUnits() + crs.getUnit() > 20;
+    }
+
+    private boolean sumOfGnUnitsGt5(Student stud, Course crs) {
+        return ((crs instanceof GeneralCourse) &&
+                (stud.getNumOfGnUnits() + crs.getUnit() > 5));
     }
 }
